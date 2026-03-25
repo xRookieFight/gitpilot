@@ -1,0 +1,78 @@
+name: Manual Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version_type:
+        description: 'Select version bump type'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Required to push commits and create releases
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetches all history for tags
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Bump version
+        id: bump
+        run: |
+          # npm version automatically commits and tags
+          NEW_VERSION=$(npm version ${{ github.event.inputs.version_type }} -m "chore: release %s")
+          echo "new_tag=$NEW_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Push changes and tag
+        run: |
+          git push origin main
+          git push origin ${{ steps.bump.outputs.new_tag }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.bump.outputs.new_tag }}
+          name: "GitPilot ${{ steps.bump.outputs.new_tag }} 🚀"
+          body: |
+            ## What's New?
+            
+            Please see the [Changelogs](./changelog/${{ steps.bump.outputs.new_tag }}.md) for a full list of changes!
+            
+            ### 📦 Installation
+            ```bash
+            npm install @xrookiefight/gitpilot@${{ steps.bump.outputs.new_tag }}
+            ```
+            
+            ---
+            
+            ### 🐞 Feedback & Support
+            If you encounter a bug or have a feature request, please [create an issue here](https://github.com/xRookieFight/gitpilot/issues).
+            
+            ### ⭐ Support the Project
+            If you find GitPilot helpful, make sure to **star the project** to help others find it! 
+            
+            ---
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
