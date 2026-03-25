@@ -26,6 +26,18 @@
 
 npm install -g @xrookiefight/gitpilot
 
+## Run with Docker
+
+```bash
+docker pull ghcr.io/xrookiefight/gitpilot:latest
+
+docker run -d \
+  --name gitpilot \
+  -p 3000:3000 \
+  -e GITHUB_TOKEN=your_token \
+  -e OPENAI_API_KEY=your_key \
+  ghcr.io/xrookiefight/gitpilot:latest
+
 ## Usage
 
 gitpilot start
