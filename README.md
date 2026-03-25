@@ -37,6 +37,7 @@ docker run -d \
   -e GITHUB_TOKEN=your_token \
   -e OPENAI_API_KEY=your_key \
   ghcr.io/xrookiefight/gitpilot:latest
+```
 
 ## Usage
 
