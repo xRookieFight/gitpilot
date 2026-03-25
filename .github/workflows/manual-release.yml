@@ -45,14 +45,14 @@ jobs:
 
       - name: Push changes and tag
         run: |
-          git push origin main
+          git push origin master
           git push origin ${{ steps.bump.outputs.new_tag }}
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.bump.outputs.new_tag }}
-          name: "GitPilot ${{ steps.bump.outputs.new_tag }} 🚀"
+          name: "GitPilot ${{ steps.bump.outputs.new_tag }}"
           body: |
             ## What's New?
             
