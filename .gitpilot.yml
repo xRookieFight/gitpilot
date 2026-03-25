@@ -1,0 +1,8 @@
+version: 1.0
+features:
+  auto_label: true
+  auto_review: true
+  welcome_message: "Welcome to the repository! Thanks for your contribution."
+  stale:
+    days_until_stale: 60
+    days_until_close: 7

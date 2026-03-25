@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  gitpilot:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - GITHUB_APP_ID=${GITHUB_APP_ID}
+      - GITHUB_PRIVATE_KEY=${GITHUB_PRIVATE_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - REPO_OWNER=${REPO_OWNER}
+      - REPO_NAME=${REPO_NAME}
+    restart: always
