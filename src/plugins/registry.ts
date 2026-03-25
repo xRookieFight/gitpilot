@@ -1,13 +1,32 @@
-import { eventBus, GitPilotEvents } from '../core/events';
+import { GitHubClient } from '../github/client';
+
+export interface GitPilotPlugin {
+  name: string;
+  onEvent?: (eventName: string, payload: any) => Promise<void>;
+  onMaintain?: () => Promise<void>;
+}
 
 export class PluginRegistry {
+  private plugins: GitPilotPlugin[] = [];
+  private githubClient: GitHubClient;
+
+  constructor(githubClient: GitHubClient) {
+    this.githubClient = githubClient;
+  }
+
+  public register(plugin: GitPilotPlugin): void {
+    this.plugins.push(plugin);
+  }
+
   public loadPlugins(): void {
-    eventBus.on(GitPilotEvents.ISSUE_OPENED, async (payload) => {
-      console.log(`Processing issue #${payload.issue.number}`);
-    });
+    console.log(`Loaded ${this.plugins.length} plugins.`);
   }
 
   public async executeMaintenance(): Promise<void> {
-    eventBus.emit(GitPilotEvents.MAINTENANCE_RUN);
+    for (const plugin of this.plugins) {
+      if (plugin.onMaintain) {
+        await plugin.onMaintain();
+      }
+    }
   }
 }
