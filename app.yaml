@@ -1,0 +1,13 @@
+name: GitPilot
+url: https://github.com/xRookieFight/gitpilot
+description: AI-powered repository co-pilot for triage, review, and maintenance.
+public: false
+default_permissions:
+  issues: write
+  pull_requests: write
+  contents: read
+  metadata: read
+default_events:
+  - issues
+  - pull_request
+  - issue_comment
