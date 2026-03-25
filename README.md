@@ -1,6 +1,14 @@
-# GitPilot
+<div align="center" style="display:grid;place-items:center;">
+<p>
+    <img width="700" src="https://socialify.git.ci/xRookieFight/gitpilot/image?description=1&font=Inter&forks=1&issues=1%3Fraw%3Dtrue&logo=https%3A%2F%2Fgithub.com%2FxRookieFight%2Fgitpilot%2Fblob%2Fmaster%2F.github%2Flogo.png%3Fraw%3Dtrue&name=1&owner=1&pattern=Plus&pulls=1&stargazers=1&theme=Auto" alt="The GitPilot logo">
+</p>
+</div>
+<div align="center" style="display:grid;place-items:center;">
 
-GitPilot is an intelligent GitHub automation tool that helps maintain open-source repositories automatically.
+<p>GitPilot is an intelligent GitHub automation tool that helps maintain open-source repositories automatically.</p>
+
+</div>
+
 
 ## Features
 
