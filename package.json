@@ -1,6 +1,6 @@
 {
   "name": "@xrookiefight/gitpilot",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Intelligent GitHub automation tool made for developers",
   "main": "dist/index.js",
   "bin": {
